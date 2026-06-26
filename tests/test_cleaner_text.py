@@ -4,8 +4,6 @@ import pytest
 from utils.text_cleaner import filterText, clean_input_text
 
 
-# ---------- filterText ----------
-
 @pytest.mark.parametrize(
     "text, criteria, expected",
     [
@@ -35,8 +33,6 @@ def test_filter_text_unicode():
     assert filterText(text, string.punctuation) == expected
 
 
-# ---------- clean_input_text ----------
-
 @pytest.mark.parametrize(
     "raw, expected",
     [
@@ -49,8 +45,10 @@ def test_filter_text_unicode():
         ("jJjJ", "iiii"),
         ("uUuU", "vvvv"),
         ("Julius", "ivlivs"),
-        ("The quick brown fox jumps over 13 dogs.",
-         "the qvick brown fox ivmps over  dogs"),
+        (
+            "The quick brown fox jumps over 13 dogs.",
+            "the qvick brown fox ivmps over  dogs",
+        ),
         ("Room #42!", "room "),
     ],
 )
@@ -69,8 +67,8 @@ def test_clean_input_text_only_j_and_u():
 
 
 def test_clean_input_text_large_input():
-    text = ("Ju!123 " * 10000)
-    expected = ("iv " * 10000)
+    text = "Ju!123 " * 10000
+    expected = "iv " * 10000
     assert clean_input_text(text) == expected
 
 
